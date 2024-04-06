@@ -12,11 +12,12 @@ export const getlogin = async (req, res) => {
     let nombre;
     console.log(req.body)
     try {
+        const code = req.body.codigo;
         const user = req.body.correo;
         const pass = req.body.contrasena;
 
 
-        const results = await connection.query('SELECT * FROM usuario WHERE correo = ? AND contrasena = ?', [user, pass])
+        const results = await connection.query('SELECT * FROM usuario WHERE codigo = ? AND correo = ? AND contrasena = ?', [code, user, pass])
         console.log(results[0][0])
 
 
@@ -31,7 +32,6 @@ export const getlogin = async (req, res) => {
             console.log("Autenticación exitosa");
             //borrable a futuro el isadmin
             if (results[0][0].tipo == 0) {
-
                 isadmin = true;
                 console.log("es admin");
             }

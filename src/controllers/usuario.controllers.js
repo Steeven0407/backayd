@@ -1,7 +1,7 @@
 import { pool } from '../db.js'
 import databaseError from '../middlewares/error.js'
 
-export const getlogin = async (req, res) => {
+export const Postlogin = async (req, res) => {
     const connection = await pool.getConnection();
 
     let isadmin = false;

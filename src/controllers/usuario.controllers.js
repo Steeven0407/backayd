@@ -82,6 +82,33 @@ export const postUsuarios = async (req, res) => {
     }
 }
 
+export const categoria = async (req, res) => {
+    try {
+        const { id, nombre } = req.body
+        const [rows] = await pool.query('INSERT INTO tipodocumento (id,nombre) VALUES (?,?)',
+            [id, nombre])
+        res.send("categoria insertada" + {
+            id: rows.insertId,
+            id,
+            nombre
+        })
+    } catch (error) {
+        console.error('Error al subir categorias:', error);
+
+        // Aquí capturamos el error específico de clave duplicada.
+        if (error.code === 'ER_DUP_ENTRY' || error.errno === 1062) {
+            const dbError = new databaseError('El código de categoria ya existe en la base de datos.', error.code || error.errno);
+            return res.status(409).json({ message: dbError.message });
+        }
+
+        // Manejo genérico de otros errores de base de datos
+        const dbError = new databaseError('Error interno del servidor al realizar la consulta', error.code || error.errno);
+        return res.status(500).json({ message: dbError.message });
+
+    }
+}
+
+
 
 export const putUsuarios = (req, res) => res.send('actualizando usuarios')
 

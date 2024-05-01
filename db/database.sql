@@ -7,7 +7,7 @@ CREATE TABLE usuario(
     correo varchar(255) NOT NULL,
     contrasena varchar(255) NOT NULL,
     tipo INT(10) NOT NULL,
-    nombre varchar(255) NOT NULL
+    nombre varchar(255) NOT NULL,
    
     PRIMARY KEY(codigo)
 
@@ -15,7 +15,7 @@ CREATE TABLE usuario(
 
 CREATE TABLE tipousuario(
     id INT(10) NOT NULL,
-    nombre varchar(255) NOT NULL
+    nombre varchar(255) NOT NULL,
    
     PRIMARY KEY(id)
 
@@ -23,7 +23,7 @@ CREATE TABLE tipousuario(
 
 CREATE TABLE tipodocumento(
     id INT(10) NOT NULL,
-    nombre varchar(255) NOT NULL
+    nombre varchar(255) NOT NULL,
    
     PRIMARY KEY(id)
 

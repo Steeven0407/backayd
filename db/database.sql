@@ -2,20 +2,23 @@ CREATE DATABASE IF NOT EXISTS repoayd;
 
 USE repoayd;
 
-CREATE TABLE usuario(
+CREATE TABLE administrador(
     codigo INT(10) NOT NULL,
     correo varchar(255) NOT NULL,
     contrasena varchar(255) NOT NULL,
-    tipo INT(10) NOT NULL,
+    solicitudes INT(10),
     nombre varchar(255) NOT NULL,
    
     PRIMARY KEY(codigo)
 
 );
 
-CREATE TABLE tipousuario(
+CREATE TABLE solicitud(
     id INT(10) NOT NULL,
-    nombre varchar(255) NOT NULL,
+    codigousuario varchar(255) NOT NULL,
+    descripcion varchar(255) NOT NULL,
+    estado varchar(255) NOT NULL,
+    archivo varchar(300) NOT NULL,
    
     PRIMARY KEY(id)
 
@@ -45,14 +48,10 @@ CREATE TABLE documento(
 -- Agregando la clave foránea para usuariosubida
 ALTER TABLE documento
 ADD CONSTRAINT FK_documento_usuario
-FOREIGN KEY (usuariosubida) REFERENCES usuario(codigo);
+FOREIGN KEY (usuariosubida) REFERENCES administrador(codigo);
 
 -- Agregando la clave foránea para tipodocumento
 ALTER TABLE documento
 ADD CONSTRAINT FK_documento_tipodocumento
 FOREIGN KEY (tipodocumento) REFERENCES tipodocumento(id);
 
--- Agregando la foranea de tipo de usuario
-ALTER TABLE usuario
-ADD CONSTRAINT FK_usuario_tipousuario
-FOREIGN KEY (tipo) REFERENCES tipousuario(id);

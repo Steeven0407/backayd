@@ -4,11 +4,9 @@ import databaseError from '../middlewares/error.js'
 export const Postlogin = async (req, res) => {
     const connection = await pool.getConnection();
 
-    let isadmin = false;
     let autenticado = false;
     let codigo;
     let correo;
-    let tipo;
     let nombre;
     console.log(req.body)
     try {
@@ -27,17 +25,13 @@ export const Postlogin = async (req, res) => {
             autenticado = true;
             nombre = results[0][0].nombre;
             correo = results[0][0].correo;
-            tipo = results[0][0].tipo;
             codigo = results[0][0].codigo;
             console.log("Autenticación exitosa");
             //borrable a futuro el isadmin
-            if (results[0][0].tipo == 0) {
-                isadmin = true;
-                console.log("es admin");
-            }
+            
             res.status(200).json({
-                isadmin: isadmin, autenticado: autenticado, nombre: nombre,
-                correo: correo, codigo: codigo, nombre: nombre, tipo: tipo
+                autenticado: autenticado, nombre: nombre,
+                correo: correo, codigo: codigo
             })
 
         } else {

@@ -17,7 +17,7 @@ export const Postlogin = async (req, res) => {
         const pass = req.body.contrasena;
 
 
-        const results = await connection.query('SELECT * FROM usuario WHERE codigo = ? AND correo = ? AND contrasena = ?', [code, user, pass])
+        const results = await connection.query('SELECT * FROM administrador WHERE codigo = ? AND correo = ? AND contrasena = ?', [code, user, pass])
         console.log(results[0][0])
 
 
@@ -59,7 +59,7 @@ export const Postlogin = async (req, res) => {
 export const postUsuarios = async (req, res) => {
     try {
         const { codigo, correo, tipo, nombre } = req.body
-        const [rows] = await pool.query('INSERT INTO usuario (codigo,correo,contrasena,tipo,nombre) VALUES (?,?,?,?,?)',
+        const [rows] = await pool.query('INSERT INTO administrador (codigo,correo,contrasena,tipo,nombre) VALUES (?,?,?,?,?)',
             [codigo, correo, codigo, tipo, nombre])
         res.send("Usuario insertado" + {
             id: rows.insertId,

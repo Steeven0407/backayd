@@ -27,7 +27,7 @@ CREATE TABLE solicitud(
 CREATE TABLE tipodocumento(
     id INT(10) NOT NULL,
     nombre varchar(255) NOT NULL,
-    categoria varchar(255)
+    categoria varchar(255),
    
     PRIMARY KEY(id)
 

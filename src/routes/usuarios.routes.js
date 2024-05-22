@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {deleteUsuarios, putUsuarios ,postUsuarios, Postlogin, categoria} from "../controllers/usuario.controllers.js"
+import {deleteUsuarios, putUsuarios ,postUsuarios, Postlogin, categoria,traerCategorias} from "../controllers/usuario.controllers.js"
 
 const router = Router()
 
@@ -7,11 +7,10 @@ router.post('/login', Postlogin)
 
 router.post('/usuarios',postUsuarios )
 
-router.post('/categorias',categoria )
+router.post('/categorias',categoria )//Publica una categoria nueva
 
-router.put('/usuarios', putUsuarios)
+router.get('/traerCategoria',traerCategorias )//llama a las categorias
 
-router.delete('/usuarios', deleteUsuarios)
 
 
 

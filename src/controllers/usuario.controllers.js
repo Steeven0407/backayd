@@ -109,6 +109,19 @@ export const categoria = async (req, res) => {
 }
 
 
+export const traerCategorias = async (req, res) => {
+    try {
+        const [rows] = await pool.query('SELECT * FROM tipodocumento');
+        res.json({ message: 'Categorías encontradas', data: rows });
+    } catch (error) {
+        console.error('Error al traer las categorías:', error);
+
+        // Manejo genérico de otros errores de base de datos
+        const dbError = new databaseError('Error interno del servidor al realizar la consulta', error.code || error.errno);
+        return res.status(500).json({ message: dbError.message });
+    }
+}
+
 
 export const putUsuarios = (req, res) => res.send('actualizando usuarios')
 

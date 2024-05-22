@@ -84,9 +84,9 @@ export const postUsuarios = async (req, res) => {
 
 export const categoria = async (req, res) => {
     try {
-        const { id, nombre } = req.body
-        const [rows] = await pool.query('INSERT INTO tipodocumento (id,nombre) VALUES (?,?)',
-            [id, nombre])
+        const { id,nombre,descripcion } = req.body
+        const [rows] = await pool.query('INSERT INTO tipodocumento (id,nombre,descripcion) VALUES (?,?,?)',
+            [id,nombre,descripcion])
         res.send("categoria insertada" + {
             id: rows.insertId,
             id,

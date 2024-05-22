@@ -5,7 +5,7 @@ const router = Router()
 
 router.post('/login', Postlogin)
 
-router.post('/usuarios',postUsuarios )
+router.post('/usuarios',postUsuarios)
 
 router.post('/categorias',categoria )//Publica una categoria nueva
 

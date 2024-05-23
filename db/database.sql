@@ -24,13 +24,11 @@ CREATE TABLE solicitud(
 
 );
 
-CREATE TABLE tipodocumento(
-    id INT(10) NOT NULL,
-    nombre varchar(255) NOT NULL,
-    categoria varchar(255)
-   
-    PRIMARY KEY(id)
-
+CREATE TABLE tipodocumento (
+    id INT(10) NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(255) NOT NULL,
+    descripcion VARCHAR(255),
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE documento(

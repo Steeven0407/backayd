@@ -85,36 +85,29 @@ export const postUsuarios = async (req, res) => {
 
 export const categoria = async (req, res) => {
   try {
-    const { nombre, descripcion } = req.body;
-    const [rows] = await pool.query(
-      "INSERT INTO tipodocumento (nombre,descripcion) VALUES (?,?)",
-      [nombre, descripcion]
-    );
-    res.send(
-      "categoria insertada" +
-        {
-          nombre,
-          descripcion,
-        }
-    );
+      const { id, nombre, descripcion } = req.body;
+
+      // Verificar si el nombre ya existe
+      const [existingRows] = await pool.query('SELECT id FROM tipodocumento WHERE nombre = ?', [nombre]);
+      if (existingRows.length > 0) {
+          return res.status(409).json({ message: 'El nombre de la categoria ya existe en la base de datos.' });
+      }
+
+      // Si no existe, proceder con la inserción
+      const [rows] = await pool.query('INSERT INTO tipodocumento (id, nombre, descripcion) VALUES (?, ?, ?)',
+          [id, nombre, descripcion]);
+      res.send({
+          message: "Categoria insertada",
+          id: rows.insertId,
+          id,
+          nombre
+      });
   } catch (error) {
-    console.error("Error al subir categorias:", error);
+      console.error('Error al subir categorias:', error);
 
-    // Aquí capturamos el error específico de clave duplicada.
-    if (error.code === "ER_DUP_ENTRY" || error.errno === 1062) {
-      const dbError = new databaseError(
-        "El código de categoria ya existe en la base de datos.",
-        error.code || error.errno
-      );
-      return res.status(409).json({ message: dbError.message });
-    }
-
-    // Manejo genérico de otros errores de base de datos
-    const dbError = new databaseError(
-      "Error interno del servidor al realizar la consulta",
-      error.code || error.errno
-    );
-    return res.status(500).json({ message: dbError.message });
+      // Manejo genérico de errores de base de datos
+      const dbError = new Error('Error interno del servidor al realizar la consulta');
+      return res.status(500).json({ message: dbError.message });
   }
 };
 

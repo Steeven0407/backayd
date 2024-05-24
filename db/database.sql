@@ -8,7 +8,8 @@ CREATE TABLE administrador(
     contrasena varchar(255) NOT NULL,
     solicitudes INT(10),
     nombre varchar(255) NOT NULL,
-   
+    fotoPerfil varchar(300) NOT NULL,
+
     PRIMARY KEY(codigo)
 
 );
@@ -19,16 +20,18 @@ CREATE TABLE solicitud(
     descripcion varchar(255) NOT NULL,
     estado varchar(255) NOT NULL,
     archivo varchar(300) NOT NULL,
-   
+
     PRIMARY KEY(id)
 
 );
 
-CREATE TABLE tipodocumento (
-    id INT(10) NOT NULL AUTO_INCREMENT,
-    nombre VARCHAR(255) NOT NULL,
-    descripcion VARCHAR(255),
-    PRIMARY KEY (id)
+CREATE TABLE tipodocumento(
+    id INT(10) NOT NULL,
+    nombre varchar(255) NOT NULL,
+    descripcion varchar(255),
+
+    PRIMARY KEY(id)
+
 );
 
 CREATE TABLE documento(
@@ -39,7 +42,8 @@ CREATE TABLE documento(
     miembros varchar(300) NOT NULL,
     archivos varchar(300) NOT NULL,
     estado INT(10) NOT NULL,
-   
+    fechaSubida Date NOT NULL,
+
     PRIMARY KEY(id)
 
 );
@@ -53,4 +57,3 @@ FOREIGN KEY (usuariosubida) REFERENCES administrador(codigo);
 ALTER TABLE documento
 ADD CONSTRAINT FK_documento_tipodocumento
 FOREIGN KEY (tipodocumento) REFERENCES tipodocumento(id);
-

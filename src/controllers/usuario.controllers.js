@@ -8,6 +8,7 @@ export const Postlogin = async (req, res) => {
     let codigo;
     let correo;
     let nombre;
+    let fotoPerfil;
     console.log(req.body)
     try {
         const code = req.body.codigo;
@@ -26,12 +27,13 @@ export const Postlogin = async (req, res) => {
             nombre = results[0][0].nombre;
             correo = results[0][0].correo;
             codigo = results[0][0].codigo;
+            fotoPerfil = results[0][0].fotoPerfil;
             console.log("Autenticación exitosa");
             //borrable a futuro el isadmin
             
             res.status(200).json({
                 autenticado: autenticado, nombre: nombre,
-                correo: correo, codigo: codigo
+                correo: correo, codigo: codigo,fotoPerfil: fotoPerfil
             })
 
         } else {

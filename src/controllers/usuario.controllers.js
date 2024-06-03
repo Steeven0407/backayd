@@ -56,10 +56,10 @@ export const Postlogin = async (req, res) => {
 
 export const postUsuarios = async (req, res) => {
     try {
-        const { codigo, correo, tipo, nombre } = req.body
-        const [rows] = await pool.query('INSERT INTO administrador (codigo,correo,contrasena,tipo,nombre) VALUES (?,?,?,?,?)',
-            [codigo, correo, codigo, tipo, nombre])
-        res.send("Usuario insertado" + {
+        const { codigo, correo,nombre } = req.body
+        const [rows] = await pool.query('INSERT INTO administrador (codigo,correo,contrasena,nombre) VALUES (?,?,?,?)',
+            [codigo, correo, codigo,nombre])
+        res.send("Usuario insertado"+ {
             id: rows.insertId,
             nombre,
             codigo
@@ -128,6 +128,56 @@ export const traerCategorias = async (req, res) => {
     return res.status(500).json({ message: dbError.message });
   }
 };
+
+export const editarDatos = async (req, res) => {
+  // const connection = await pool.getConnection();
+    const codigo = req.body.codigo;
+    let correo = req.body.correo;
+    let fotoPerfil = req.body.fotoPerfil;
+    let nombre = req.body.nombre;
+    console.log(req.body);
+    if (fotoPerfil == "") {
+      fotoPerfil = null;
+    }
+    if (nombre == "") {
+        nombre = null;
+    }
+    if (correo == "") {
+      correo = null;
+    }
+    try {
+      // Consulta de actualización
+      const [updateResult] = await pool.query(
+          'UPDATE administrador SET nombre = IFNULL(?, nombre), correo = IFNULL(?, correo), fotoPerfil = IFNULL(?, fotoPerfil) WHERE codigo = ?',
+          [nombre, correo, fotoPerfil, codigo]
+      );
+
+      // Consulta para obtener los datos actualizados
+      const [datos] = await pool.query('SELECT * FROM administrador WHERE codigo = ?', [codigo]);
+
+      if (datos.length >= 1) {
+          // Datos nuevos que actualiza el usuario
+          nombre = datos[0].nombre;
+          correo = datos[0].correo;
+          fotoPerfil = datos[0].fotoPerfil;
+      }
+
+      res.status(200).json({ nombre, correo, fotoPerfil });
+  } catch (error) {
+      console.error('Error al actualizar los datos:', error);
+
+      // Aquí capturamos el error específico de clave duplicada.
+      if (error.code === "ER_DUP_ENTRY" || error.errno === 1062) {
+          const dbError = new Error('El código de usuario ya existe en la base de datos.');
+          return res.status(409).json({ message: dbError.message });
+      }
+
+      // Manejo genérico de otros errores de base de datos
+      const dbError = new Error('Error interno del servidor al realizar la consulta');
+      return res.status(500).json({ message: dbError.message });
+  }
+};
+
 
 export const putUsuarios = (req, res) => res.send("actualizando usuarios");
 

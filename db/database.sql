@@ -8,7 +8,7 @@ CREATE TABLE administrador(
     contrasena varchar(255) NOT NULL,
     solicitudes INT(10),
     nombre varchar(255) NOT NULL,
-    fotoPerfil varchar(300) NOT NULL,
+    fotoPerfil varchar(300),
 
     PRIMARY KEY(codigo)
 
@@ -19,7 +19,7 @@ CREATE TABLE solicitud(
     codigousuario varchar(255) NOT NULL,
     descripcion varchar(255) NOT NULL,
     estado varchar(255) NOT NULL,
-    archivo varchar(300) NOT NULL,
+    archivo varchar(300),
 
     PRIMARY KEY(id)
 

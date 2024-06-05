@@ -35,7 +35,7 @@ CREATE TABLE tipodocumento(
 );
 
 CREATE TABLE documento(
-    id INT(10) NOT NULL,
+    id INT(10) NOT NULL AUTO_INCREMENT,
     usuariosubida int(10) NOT NULL,
     tipodocumento int(10) NOT NULL,
     descripcion varchar(300) NOT NULL,

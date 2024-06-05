@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {postUsuarios, Postlogin, categoria,traerCategorias,editarDatos, insertarDocumento} from "../controllers/usuario.controllers.js"
+import {postUsuarios, Postlogin, categoria,traerCategorias,editarDatos, insertarDocumento, editarContrasena} from "../controllers/usuario.controllers.js"
 
 const router = Router()
 
@@ -14,6 +14,8 @@ router.post('/insertarDocumento',insertarDocumento )//Publica un documento nuevo
 router.get('/traerCategoria',traerCategorias )//llama a las categorias
 
 router.put('/modificarDatos',editarDatos )//modifica los datos del admin
+
+router.put('/editarContrasena',editarContrasena )//modifica la contraseña del admin
 
 
 

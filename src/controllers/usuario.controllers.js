@@ -213,3 +213,25 @@ export const insertarDocumento = async (req, res) => {
     return res.status(500).json({ message: dbError.message });
   }
 };
+
+export const editarContrasena = async (req, res) => {
+  let contrasena = req.body.contrasena;
+  const codigo = req.body.codigo;
+  
+  console.log(req.body);
+  try {
+    // Consulta de actualización
+    const [updateResult] = await pool.query(
+      'UPDATE administrador SET contrasena = IFNULL(?, contrasena) WHERE codigo = ?',
+      [contrasena,codigo]
+    );
+
+    res.status(200).json({ rta: "contraseña actualizada" });
+  } catch (error) {
+    console.error('Error al actualizar los datos:', error);
+
+    // Manejo genérico de otros errores de base de datos
+    const dbError = new Error('Error interno del servidor al realizar la consulta');
+    return res.status(500).json({ message: dbError.message });
+  }
+};

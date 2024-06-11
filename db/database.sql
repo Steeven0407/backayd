@@ -15,7 +15,7 @@ CREATE TABLE administrador(
 );
 
 CREATE TABLE solicitud(
-    id INT(10) NOT NULL,
+    id INT(10) NOT NULL AUTO_INCREMENT,
     codigousuario varchar(255) NOT NULL,
     descripcion varchar(255) NOT NULL,
     estado varchar(255) NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE solicitud(
 );
 
 CREATE TABLE tipodocumento(
-    id INT(10) NOT NULL,
+    id INT(10) NOT NULL AUTO_INCREMENT,
     nombre varchar(255) NOT NULL,
     descripcion varchar(255),
 
@@ -36,7 +36,7 @@ CREATE TABLE tipodocumento(
 
 CREATE TABLE documento(
     id INT(10) NOT NULL AUTO_INCREMENT,
-    usuariosubida int(10) NOT NULL,
+    nombre varchar(300) NOT NULL,
     tipodocumento int(10) NOT NULL,
     descripcion varchar(300) NOT NULL,
     miembros varchar(300) NOT NULL,

@@ -181,7 +181,7 @@ export const insertarDocumento = async (req, res) => {
   let mes = ('0' + (fechaDeHoy.getMonth() + 1)).slice(-2); // Agrega cero delante si es necesario
   
 
-  let usuariosubida = req.body.usuariosubida;//el codigo del administrador
+  let nombre = req.body.nombre;//el codigo del administrador
   let tipodocumento = req.body.tipodocumento;//el codigo del tipo de documento
   let descripcion = req.body.descripcion;
   let miembros = req.body.miembros;
@@ -192,13 +192,13 @@ export const insertarDocumento = async (req, res) => {
   try {
     // Consulta de actualización
     const [resultsubida] = await pool.query(
-      'INSERT INTO documento (usuariosubida,tipodocumento,descripcion,miembros,archivos,estado,fechasubida) VALUES (?, ?, ?, ?, ?, ?, ?)',
-      [usuariosubida,tipodocumento, descripcion, miembros,archivos,estado,fechasubida]
+      'INSERT INTO documento (nombre,tipodocumento,descripcion,miembros,archivos,estado,fechasubida) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      [nombre,tipodocumento, descripcion, miembros,archivos,estado,fechasubida]
     );
 
   
 
-    res.status(200).json({usuariosubida,tipodocumento, descripcion, miembros,archivos,estado,fechasubida});
+    res.status(200).json({nombre,tipodocumento, descripcion, miembros,archivos,estado,fechasubida});
   } catch (error) {
     console.error('Error al actualizar los datos:', error);
 

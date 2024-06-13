@@ -48,10 +48,6 @@ CREATE TABLE documento(
 
 );
 
--- Agregando la clave foránea para usuariosubida
-ALTER TABLE documento
-ADD CONSTRAINT FK_documento_usuario
-FOREIGN KEY (usuariosubida) REFERENCES administrador(codigo);
 
 -- Agregando la clave foránea para tipodocumento
 ALTER TABLE documento

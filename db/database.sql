@@ -53,3 +53,5 @@ CREATE TABLE documento(
 ALTER TABLE documento
 ADD CONSTRAINT FK_documento_tipodocumento
 FOREIGN KEY (tipodocumento) REFERENCES tipodocumento(id);
+
+--INSERT INTO `repoayd`.`administrador` (`codigo`, `correo`, `contrasena`, `nombre`) VALUES ('1152018', 'steevenandresazu@gmail.com', '123456', 'steeven sayago');

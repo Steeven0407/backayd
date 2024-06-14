@@ -181,7 +181,7 @@ export const insertarDocumento = async (req, res) => {
   let mes = ('0' + (fechaDeHoy.getMonth() + 1)).slice(-2); // Agrega cero delante si es necesario
   
 
-  let nombre = req.body.nombre;//el codigo del administrador
+  let nombre = req.body.nombre;
   let tipodocumento = req.body.tipodocumento;//el codigo del tipo de documento
   let descripcion = req.body.descripcion;
   let miembros = req.body.miembros;
@@ -229,6 +229,40 @@ export const editarContrasena = async (req, res) => {
     res.status(200).json({ rta: "contraseña actualizada" });
   } catch (error) {
     console.error('Error al actualizar los datos:', error);
+
+    // Manejo genérico de otros errores de base de datos
+    const dbError = new Error('Error interno del servidor al realizar la consulta');
+    return res.status(500).json({ message: dbError.message });
+  }
+};
+
+export const editarDocumento = async (req, res) => {
+  // const connection = await pool.getConnection();
+  let id = req.body.id
+  let nombre = req.body.nombre;
+  let tipodocumento = req.body.tipodocumento;
+  let descripcion = req.body.descripcion;
+  let miembros = req.body.miembros;
+  let archivos = req.body.archivos;
+  let estado = req.body.estado;
+  console.log(req.body);
+  try {
+    // Consulta de actualización
+    const [resultsubida] = await pool.query(
+      'UPDATE documento SET nombre = IFNULL(?, nombre), tipodocumento = IFNULL(?, tipodocumento), descripcion = IFNULL(?, descripcion), miembros = IFNULL(?, miembros),archivos = IFNULL(?, archivos),estado = IFNULL(?, estado) WHERE id = ?',
+      [nombre,tipodocumento, descripcion, miembros,archivos,estado,id]
+    );
+
+
+    res.status(200).json({message: 'Actualizado con éxito', nombre,tipodocumento, descripcion, miembros,archivos,estado,id});
+  } catch (error) {
+    console.error('Error al actualizar los datos:', error);
+
+    // Aquí capturamos el error específico de clave duplicada.
+    if (error.code === "ER_DUP_ENTRY" || error.errno === 1062) {
+      const dbError = new Error('El código de usuario ya existe en la base de datos.');
+      return res.status(409).json({ message: dbError.message });
+    }
 
     // Manejo genérico de otros errores de base de datos
     const dbError = new Error('Error interno del servidor al realizar la consulta');

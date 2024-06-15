@@ -20,7 +20,7 @@ router.put('/editarContrasena',editarContrasena )//modifica la contraseña del a
 
 router.put('/editarDocumento',editarDocumento )//edita un documento
 
-router.put('/editarCategoria',editarCategoria )//edita un documento
+router.put('/editarCategoria',editarCategoria )//edita una categoria
 
 router.delete('/eliminarDocumento',eliminarDocumento)//elimina un documento
 

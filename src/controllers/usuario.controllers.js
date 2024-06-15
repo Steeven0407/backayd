@@ -27,6 +27,7 @@ export const Postlogin = async (req, res) => {
       //borrable a futuro el isadmin
 
       res.status(200).json({
+        message: 'loggeado con éxito',
         autenticado: autenticado, nombre: nombre,
         correo: correo, codigo: codigo, fotoPerfil: fotoPerfil
       })
@@ -156,7 +157,7 @@ export const editarDatos = async (req, res) => {
       fotoPerfil = datos[0].fotoPerfil;
     }
 
-    res.status(200).json({ nombre, correo, fotoPerfil });
+    res.status(200).json({message: 'Actualizado con éxito', nombre, correo, fotoPerfil });
   } catch (error) {
     console.error('Error al actualizar los datos:', error);
 
@@ -198,7 +199,7 @@ export const insertarDocumento = async (req, res) => {
 
   
 
-    res.status(200).json({nombre,tipodocumento, descripcion, miembros,archivos,estado,fechasubida});
+    res.status(200).json({message: 'Documento insertado con éxito',nombre,tipodocumento, descripcion, miembros,archivos,estado,fechasubida});
   } catch (error) {
     console.error('Error al actualizar los datos:', error);
 
@@ -285,6 +286,32 @@ export const eliminarDocumento = async (req, res) => {
     res.status(200).json({message: 'Archivo eliminado con exito'});
   } catch (error) {
     console.error('Error al actualizar los datos:', error);
+
+    // Manejo genérico de otros errores de base de datos
+    const dbError = new Error('Error interno del servidor al realizar la consulta');
+    return res.status(500).json({ message: dbError.message });
+  }
+};
+
+export const editarCategoria = async (req, res) => {
+  // const connection = await pool.getConnection();
+  let id = req.body.id
+  let nombre = req.body.nombre;
+  let descripcion = req.body.descripcion;
+  
+  console.log(req.body);
+  try {
+    // Consulta de actualización
+    const [resultsubida] = await pool.query(
+      'UPDATE tipodocumento SET nombre = IFNULL(?, nombre), descripcion = IFNULL(?, descripcion) WHERE id = ?',
+      [nombre,descripcion,id]
+    );
+
+
+    res.status(200).json({message: 'Actualizado con éxito'});
+  } catch (error) {
+    console.error('Error al actualizar los datos:', error);
+
 
     // Manejo genérico de otros errores de base de datos
     const dbError = new Error('Error interno del servidor al realizar la consulta');

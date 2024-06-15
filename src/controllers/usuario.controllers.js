@@ -269,3 +269,25 @@ export const editarDocumento = async (req, res) => {
     return res.status(500).json({ message: dbError.message });
   }
 };
+
+export const eliminarDocumento = async (req, res) => {
+  // const connection = await pool.getConnection();
+  let id = req.body.id
+  console.log(req.body);
+  try {
+    // Consulta de actualización
+    const [resultsubida] = await pool.query(
+      'DELETE FROM Documento WHERE id = ?',
+      [id]
+    );
+
+
+    res.status(200).json({message: 'Archivo eliminado con exito'});
+  } catch (error) {
+    console.error('Error al actualizar los datos:', error);
+
+    // Manejo genérico de otros errores de base de datos
+    const dbError = new Error('Error interno del servidor al realizar la consulta');
+    return res.status(500).json({ message: dbError.message });
+  }
+};

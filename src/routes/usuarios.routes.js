@@ -1,8 +1,11 @@
 import { Router } from "express";
-import {postUsuarios, Postlogin, categoria,traerCategorias,editarDatos, insertarDocumento,
-    editarContrasena,eliminarDocumento,editarDocumento,editarCategoria,generarInforme} from "../controllers/usuario.controllers.js"
+import {postUsuarios, Postlogin,editarDatos,
+    editarContrasena} from "../controllers/usuario.controllers.js"
+import {generarInforme} from "../controllers/pdf.controllers.js"
+import{categoria,editarCategoria,editarDocumento,
+    eliminarDocumento,insertarDocumento,traerCategorias} from "../controllers/documento.controllers.js"
 
-const router = Router()
+    const router = Router()
 
 router.post('/login', Postlogin) //login
 

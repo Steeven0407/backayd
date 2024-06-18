@@ -50,7 +50,7 @@ CREATE TABLE documento(
 );
 
 CREATE TABLE contadorvistas(
-    cantidadVistas INT NOT NULL,
+    cantidadVistas INT NOT NULL DEFAULT 0,
     PRIMARY KEY (cantidadVistas)
 );
 

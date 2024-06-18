@@ -31,19 +31,20 @@ export const insertarDocumento = async (req, res) => {
     let descripcion = req.body.descripcion;
     let miembros = req.body.miembros;
     let archivos = req.body.archivos;
+    let semestre = req.body.semestre;
     let estado = req.body.estado;//0 inactivo 1 activo
     let fechasubida = `${año}-${mes}-${dia}`;
     console.log(req.body);
     try {
         // Consulta de actualización
         const [resultsubida] = await pool.query(
-            'INSERT INTO documento (nombre,tipodocumento,descripcion,miembros,archivos,estado,fechasubida) VALUES (?, ?, ?, ?, ?, ?, ?)',
-            [nombre, tipodocumento, descripcion, miembros, archivos, estado, fechasubida]
+            'INSERT INTO documento (nombre,tipodocumento,descripcion,miembros,archivos,estado,fechasubida,semestre) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+            [nombre, tipodocumento, descripcion, miembros, archivos, estado, fechasubida, semestre]
         );
 
 
 
-        res.status(200).json({ message: 'Documento insertado con éxito', nombre, tipodocumento, descripcion, miembros, archivos, estado, fechasubida });
+        res.status(200).json({ message: 'Documento insertado con éxito', nombre, tipodocumento, descripcion, miembros, archivos, estado, fechasubida, semestre });
     } catch (error) {
         console.error('Error al actualizar los datos:', error);
 
@@ -169,26 +170,32 @@ export const editarCategoria = async (req, res) => {
     }
 };
 
-// export const filtrarDocumentos = async (req, res) => {
-//     // const connection = await pool.getConnection();
-//     let dato = req.body.dato
-    
+export const eliminarCategoria = async (req, res) => {
+    const id = req.body.id;
 
-//     try {
-//         // Consulta de actualización
-//         const [resultsubida] = await pool.query(
-//             'UPDATE tipodocumento SET nombre = IFNULL(?, nombre), descripcion = IFNULL(?, descripcion) WHERE id = ?',
-//             [nombre, descripcion, id]
-//         );
+    console.log(req.body);
+    try {
+        // Iniciar una transacción
+        await pool.query('START TRANSACTION');
 
+        // Eliminar los documentos asociados al tipodocumento
+        await pool.query('DELETE FROM documento WHERE tipodocumento = ?', [id]);
 
-//         res.status(200).json({ message: 'Actualizado con éxito' });
-//     } catch (error) {
-//         console.error('Error al actualizar los datos:', error);
+        // Eliminar el tipodocumento
+        await pool.query('DELETE FROM tipodocumento WHERE id = ?', [id]);
 
+        // Confirmar la transacción
+        await pool.query('COMMIT');
 
-//         // Manejo genérico de otros errores de base de datos
-//         const dbError = new Error('Error interno del servidor al realizar la consulta');
-//         return res.status(500).json({ message: dbError.message });
-//     }
-// };
+        res.status(200).json({ message: 'Eliminado con éxito' });
+    } catch (error) {
+        console.error('Error al eliminar los datos:', error);
+
+        // Revertir la transacción en caso de error
+        await pool.query('ROLLBACK');
+
+        // Manejo genérico de otros errores de base de datos
+        const dbError = new Error('Error interno del servidor al realizar la consulta');
+        return res.status(500).json({ message: dbError.message });
+    }
+};

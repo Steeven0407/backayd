@@ -3,7 +3,7 @@ import {postUsuarios, Postlogin,editarDatos,
     editarContrasena,filtrarDocumentos} from "../controllers/usuario.controllers.js"
 import {generarInforme} from "../controllers/pdf.controllers.js"
 import{categoria,editarCategoria,editarDocumento,
-    eliminarDocumento,insertarDocumento,traerCategorias} from "../controllers/documento.controllers.js"
+    eliminarDocumento,insertarDocumento,traerCategorias,eliminarCategoria} from "../controllers/documento.controllers.js"
 import {incrementarVisitas} from "../controllers/index.controller.js"
     const router = Router()
 
@@ -32,6 +32,8 @@ router.delete('/eliminarDocumento',eliminarDocumento)//elimina un documento
 router.post('/filtrarDocumentos',filtrarDocumentos )//filtra documentos segun la busqueda
 
 router.put('/vistas',incrementarVisitas )//incrementa las vistas
+
+router.delete('/eliminarCategoria',eliminarCategoria)//elimina una categoria y todos los documentos asociados
 
 
 

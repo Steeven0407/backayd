@@ -115,7 +115,7 @@ export const editarDatos = async (req, res) => {
       fotoPerfil = datos[0].fotoPerfil;
     }
 
-    res.status(200).json({message: 'Actualizado con éxito', nombre, correo, fotoPerfil });
+    res.status(200).json({ message: 'Actualizado con éxito', nombre, correo, fotoPerfil });
   } catch (error) {
     console.error('Error al actualizar los datos:', error);
 
@@ -136,13 +136,13 @@ export const editarDatos = async (req, res) => {
 export const editarContrasena = async (req, res) => {
   let contrasena = req.body.contrasena;
   const codigo = req.body.codigo;
-  
+
   console.log(req.body);
   try {
     // Consulta de actualización
     const [updateResult] = await pool.query(
       'UPDATE administrador SET contrasena = IFNULL(?, contrasena) WHERE codigo = ?',
-      [contrasena,codigo]
+      [contrasena, codigo]
     );
 
     res.status(200).json({ rta: "contraseña actualizada" });
@@ -155,4 +155,38 @@ export const editarContrasena = async (req, res) => {
   }
 };
 
+export const filtrarDocumentos = async (req, res) => {
+  const dato = req.body.dato;
+
+  console.log(req.body);
+
+  try {
+    // Consulta para buscar el dato en múltiples campos
+    const [result] = await pool.query(
+      `SELECT * FROM Documento 
+       WHERE descripcion LIKE ? 
+          OR semestre LIKE ? 
+          OR nombre LIKE ? 
+          OR tipodocumento LIKE ?`,
+      [`%${dato}%`, `%${dato}%`, `%${dato}%`, `%${dato}%`]
+    );
+
+    if (result.length === 0) {
+      return res.status(404).json({
+        message: "No se encontró nada por esta búsqueda"
+      });
+    }
+
+    res.status(200).json({
+      message: "Documentos encontrados",
+      documentos: result
+    });
+  } catch (error) {
+    console.error('Error al buscar los documentos:', error);
+
+    // Manejo genérico de otros errores de base de datos
+    const dbError = new Error('Error interno del servidor al realizar la consulta');
+    return res.status(500).json({ message: dbError.message });
+  }
+};
 

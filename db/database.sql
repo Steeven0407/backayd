@@ -43,6 +43,7 @@ CREATE TABLE documento(
     archivos varchar(300) NOT NULL,
     estado INT(10) NOT NULL,
     fechaSubida Date NOT NULL,
+    semestre varchar(100) NOT NULL
 
     PRIMARY KEY(id)
 

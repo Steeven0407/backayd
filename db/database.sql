@@ -49,6 +49,11 @@ CREATE TABLE documento(
 
 );
 
+CREATE TABLE contadorvistas(
+    cantidadVistas INT NOT NULL,
+    PRIMARY KEY (cantidadVistas)
+);
+
 
 -- Agregando la clave foránea para tipodocumento
 ALTER TABLE documento

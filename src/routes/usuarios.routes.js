@@ -4,7 +4,7 @@ import {postUsuarios, Postlogin,editarDatos,
 import {generarInforme} from "../controllers/pdf.controllers.js"
 import{categoria,editarCategoria,editarDocumento,
     eliminarDocumento,insertarDocumento,traerCategorias} from "../controllers/documento.controllers.js"
-
+import {incrementarVisitas} from "../controllers/index.controller.js"
     const router = Router()
 
 router.post('/login', Postlogin) //login
@@ -30,6 +30,8 @@ router.put('/editarCategoria',editarCategoria )//edita una categoria
 router.delete('/eliminarDocumento',eliminarDocumento)//elimina un documento
 
 router.post('/filtrarDocumentos',filtrarDocumentos )//filtra documentos segun la busqueda
+
+router.put('/vistas',incrementarVisitas )//incrementa las vistas
 
 
 

@@ -38,7 +38,7 @@ export const insertarDocumento = async (req, res) => {
     try {
         // Consulta de actualización
         const [resultsubida] = await pool.query(
-            'INSERT INTO documento (nombre,tipodocumento,descripcion,miembros,archivos,estado,fechasubida,semestre) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+            'INSERT INTO documento (nombre,tipodocumento,descripcion,miembros,archivos,estado,fechaSubida,semestre) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
             [nombre, tipodocumento, descripcion, miembros, archivos, estado, fechasubida, semestre]
         );
 

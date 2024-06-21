@@ -134,18 +134,21 @@ export const editarDatos = async (req, res) => {
 
 
 export const editarContrasena = async (req, res) => {
-  let contrasena = req.body.contrasena;
-  const codigo = req.body.codigo;
+  const { contrasena, codigo } = req.body;
 
   console.log(req.body);
   try {
-    // Consulta de actualización
-    const [updateResult] = await pool.query(
-      'UPDATE administrador SET contrasena = IFNULL(?, contrasena) WHERE codigo = ?',
-      [contrasena, codigo]
-    );
+    // Verificar si el código existe
+    const [rows] = await pool.query('SELECT * FROM administrador WHERE codigo = ?', [codigo]);
 
-    res.status(200).json({ rta: "contraseña actualizada" });
+    if (rows.length === 0) {
+      return res.status(404).json({ message: 'Código incorrecto' });
+    }
+
+    // Consulta de actualización
+    await pool.query('UPDATE administrador SET contrasena = IFNULL(?, contrasena) WHERE codigo = ?', [contrasena, codigo]);
+
+    res.status(200).json({ rta: 'Contraseña actualizada' });
   } catch (error) {
     console.error('Error al actualizar los datos:', error);
 

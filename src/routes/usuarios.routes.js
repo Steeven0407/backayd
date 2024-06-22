@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {postUsuarios, Postlogin,editarDatos,
-    editarContrasena,filtrarDocumentos,filtrarDocumentosPorCategoria} from "../controllers/usuario.controllers.js"
+    editarContrasena,filtrarDocumentos
+    ,filtrarDocumentosPorCategoria,filtrarDocumentoPorID} from "../controllers/usuario.controllers.js"
 import {generarInforme} from "../controllers/pdf.controllers.js"
 import{categoria,editarCategoria,editarDocumento,
     eliminarDocumento,insertarDocumento,traerCategorias,eliminarCategoria,} from "../controllers/documento.controllers.js"
@@ -36,6 +37,9 @@ router.post('/filtrarDocumentosPorCategoria',filtrarDocumentosPorCategoria )//fi
 router.put('/vistas',incrementarVisitas )//incrementa las vistas
 
 router.delete('/eliminarCategoria',eliminarCategoria)//elimina una categoria y todos los documentos asociados
+
+router.post('/filtrarDocumentoPorID',filtrarDocumentoPorID )//filtra documentos segun la busqueda
+
 
 
 

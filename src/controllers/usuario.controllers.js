@@ -224,3 +224,35 @@ export const filtrarDocumentosPorCategoria = async (req, res) => {
     return res.status(500).json({ message: dbError.message });
   }
 };
+
+export const filtrarDocumentoPorID = async (req, res) => {
+  const id = req.body.id;
+
+  console.log(req.body);
+
+  try {
+    // Consulta para buscar el dato en múltiples campos
+    const [result] = await pool.query(
+      `SELECT * FROM Documento 
+       WHERE id = ?`,
+      [id]
+    );
+
+    if (result.length === 0) {
+      return res.status(404).json({
+        message: "No se encontró nada por esta búsqueda"
+      });
+    }
+
+    res.status(200).json({
+      message: "Documentos encontrados",
+      documentos: result
+    });
+  } catch (error) {
+    console.error('Error al buscar los documentos:', error);
+
+    // Manejo genérico de otros errores de base de datos
+    const dbError = new Error('Error interno del servidor al realizar la consulta');
+    return res.status(500).json({ message: dbError.message });
+  }
+};

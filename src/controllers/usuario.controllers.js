@@ -256,3 +256,31 @@ export const filtrarDocumentoPorID = async (req, res) => {
     return res.status(500).json({ message: dbError.message });
   }
 };
+
+export const cantidadDeDocumentos = async (req, res) => {
+  try {
+    // Consulta para buscar el dato en múltiples campos
+    console.log('Ejecutando consulta de cantidad total de proyectos...');
+    const [totalProyectos] = await pool.query(`
+    SELECT COUNT(*) AS cantidadTotalDeProyectos
+    FROM documento
+  `);
+
+    if (totalProyectos.length === 0) {
+      return res.status(404).json({
+        message: "No se encontró nada por esta búsqueda"
+      });
+    }
+
+    res.status(200).json({
+      message: "cantidad encontrada",
+      documentos: totalProyectos[0].cantidadTotalDeProyectos
+    });
+  } catch (error) {
+    console.error('Error al buscar los documentos:', error);
+
+    // Manejo genérico de otros errores de base de datos
+    const dbError = new Error('Error interno del servidor al realizar la consulta');
+    return res.status(500).json({ message: dbError.message });
+  }
+};

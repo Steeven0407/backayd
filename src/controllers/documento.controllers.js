@@ -199,3 +199,22 @@ export const eliminarCategoria = async (req, res) => {
         return res.status(500).json({ message: dbError.message });
     }
 };
+
+export const traerCategoriasPorId = async (req, res) => {
+    const id = req.body.id;
+
+    console.log(req.body);
+    try {
+        const [rows] = await pool.query("SELECT * FROM tipodocumento WHERE id = ?",[id]);
+        res.json({ message: "Categoría encontrada", data: rows });
+    } catch (error) {
+        console.error("Error al traer la categoría:", error);
+
+        // Manejo genérico de otros errores de base de datos
+        const dbError = new databaseError(
+            "Error interno del servidor al realizar la consulta",
+            error.code || error.errno
+        );
+        return res.status(500).json({ message: dbError.message });
+    }
+};

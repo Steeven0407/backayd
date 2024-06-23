@@ -4,7 +4,8 @@ import {postUsuarios, Postlogin,editarDatos,
     ,filtrarDocumentosPorCategoria,filtrarDocumentoPorID} from "../controllers/usuario.controllers.js"
 import {generarInforme} from "../controllers/pdf.controllers.js"
 import{categoria,editarCategoria,editarDocumento,
-    eliminarDocumento,insertarDocumento,traerCategorias,eliminarCategoria,} from "../controllers/documento.controllers.js"
+    eliminarDocumento,insertarDocumento,traerCategorias,
+    eliminarCategoria,traerCategoriasPorId} from "../controllers/documento.controllers.js"
 import {incrementarVisitas} from "../controllers/index.controller.js"
     const router = Router()
 
@@ -17,6 +18,8 @@ router.post('/categorias',categoria )//Publica una categoria nueva
 router.post('/insertarDocumento',insertarDocumento )//Publica un documento nuevo
 
 router.get('/traerCategoria',traerCategorias )//llama a todas las categorias
+
+router.post('/traerCategoriasPorId',traerCategoriasPorId )//llama a todas las categorias
 
 router.get('/informe',generarInforme )//Genera un informe
 

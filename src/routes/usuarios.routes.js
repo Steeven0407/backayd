@@ -7,7 +7,7 @@ import{categoria,editarCategoria,editarDocumento,
     eliminarDocumento,insertarDocumento,traerCategorias,
     eliminarCategoria,traerCategoriasPorId} from "../controllers/documento.controllers.js"
 import {incrementarVisitas} from "../controllers/index.controller.js"
-    const router = Router()
+const router = Router()
 
 router.post('/login', Postlogin) //login
 

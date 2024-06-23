@@ -17,7 +17,7 @@ export const incrementarVisitas = async (req, res) => {
 
         res.status(200).json({
             message: 'Visitas incrementadas con éxito',
-            cantidadvisitas: rows[0].cantidadvisitas
+            cantidadvisitas: rows[0]
         });
     } catch (error) {
         console.error('Error al incrementar las visitas:', error);

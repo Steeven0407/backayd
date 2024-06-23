@@ -70,6 +70,25 @@ export const editarDocumento = async (req, res) => {
     let archivos = req.body.archivos;
     let estado = req.body.estado;
     console.log(req.body);
+
+    if (nombre== "") {
+        nombre = null;
+    }
+    if (tipodocumento == "") {
+        tipodocumento = null;
+    }
+    if (descripcion == "") {
+        descripcion = null;
+    }
+    if (miembros == "") {
+        miembros = null;
+    }
+    if (archivos == "") {
+        archivos = null;
+    }
+    if (estado == "") {
+        estado = null;
+    }
     try {
         // Consulta de actualización
         const [resultsubida] = await pool.query(
@@ -151,6 +170,14 @@ export const editarCategoria = async (req, res) => {
     let descripcion = req.body.descripcion;
 
     console.log(req.body);
+
+    if (nombre == "") {
+        nombre = null;
+      }
+
+    if (descripcion == "") {
+        descripcion = null;
+    }
     try {
         // Consulta de actualización
         const [resultsubida] = await pool.query(

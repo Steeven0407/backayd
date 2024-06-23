@@ -67,6 +67,7 @@ export const editarDocumento = async (req, res) => {
     let tipodocumento = req.body.tipodocumento;
     let descripcion = req.body.descripcion;
     let miembros = req.body.miembros;
+    let semestre = req.body.semestre;
     let archivos = req.body.archivos;
     let estado = req.body.estado;
     console.log(req.body);
@@ -92,12 +93,12 @@ export const editarDocumento = async (req, res) => {
     try {
         // Consulta de actualización
         const [resultsubida] = await pool.query(
-            'UPDATE documento SET nombre = IFNULL(?, nombre), tipodocumento = IFNULL(?, tipodocumento), descripcion = IFNULL(?, descripcion), miembros = IFNULL(?, miembros),archivos = IFNULL(?, archivos),estado = IFNULL(?, estado) WHERE id = ?',
-            [nombre, tipodocumento, descripcion, miembros, archivos, estado, id]
+            'UPDATE documento SET nombre = IFNULL(?, nombre), tipodocumento = IFNULL(?, tipodocumento), descripcion = IFNULL(?, descripcion), miembros = IFNULL(?, miembros),archivos = IFNULL(?, archivos),estado = IFNULL(?, estado),semestre = IFNULL(?, semestre) WHERE id = ?',
+            [nombre, tipodocumento, descripcion, miembros, archivos, estado,semestre,id]
         );
 
 
-        res.status(200).json({ message: 'Actualizado con éxito', nombre, tipodocumento, descripcion, miembros, archivos, estado, id });
+        res.status(200).json({ message: 'Actualizado con éxito', nombre, tipodocumento, descripcion, miembros, archivos, estado,semestre, id });
     } catch (error) {
         console.error('Error al actualizar los datos:', error);
 

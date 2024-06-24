@@ -201,7 +201,7 @@ export const filtrarDocumentosPorCategoria = async (req, res) => {
   try {
     // Consulta para buscar el dato en múltiples campos
     const [result] = await pool.query(
-      `SELECT * FROM Documento 
+      `SELECT * FROM documento 
        WHERE tipoDocumento = ?`,
       [id]
     );

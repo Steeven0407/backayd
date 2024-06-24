@@ -166,7 +166,7 @@ export const filtrarDocumentos = async (req, res) => {
   try {
     // Consulta para buscar el dato en múltiples campos
     const [result] = await pool.query(
-      `SELECT * FROM Documento 
+      `SELECT * FROM documento 
        WHERE descripcion LIKE ? 
           OR semestre LIKE ? 
           OR nombre LIKE ? 
@@ -233,7 +233,7 @@ export const filtrarDocumentoPorID = async (req, res) => {
   try {
     // Consulta para buscar el dato en múltiples campos
     const [result] = await pool.query(
-      `SELECT * FROM Documento 
+      `SELECT * FROM documento 
        WHERE id = ?`,
       [id]
     );

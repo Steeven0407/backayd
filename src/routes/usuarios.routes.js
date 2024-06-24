@@ -19,7 +19,7 @@ router.post('/insertarDocumento',insertarDocumento )//Publica un documento nuevo
 
 router.get('/traerCategoria',traerCategorias )//llama a todas las categorias
 
-router.post('/traerCategoriasPorId',traerCategoriasPorId )//llama a todas las categorias
+router.post('/traerCategoriasPorId',traerCategoriasPorId )//llama a una categoria por id
 
 router.get('/informe',generarInforme )//Genera un informe
 

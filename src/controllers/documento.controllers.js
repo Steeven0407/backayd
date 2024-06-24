@@ -121,7 +121,7 @@ export const eliminarDocumento = async (req, res) => {
     try {
         // Consulta de actualización
         const [resultsubida] = await pool.query(
-            'DELETE FROM Documento WHERE id = ?',
+            'DELETE FROM documento WHERE id = ?',
             [id]
         );
 

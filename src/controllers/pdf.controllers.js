@@ -1,12 +1,12 @@
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+// import { fileURLToPath } from 'url';
+// import { dirname, join } from 'path';
 import { pool } from "../db.js";
-import databaseError from "../middlewares/error.js";
-import PDFDocument from 'pdfkit';
-import crypto from 'crypto';
-import fs from 'fs';
-import path from 'path';
-import os from 'os';
+// import databaseError from "../middlewares/error.js";
+// import PDFDocument from 'pdfkit';
+// import crypto from 'crypto';
+// import fs from 'fs';
+// import path from 'path';
+// import os from 'os';
 
 export const generarInforme = async (req, res) => {
   try {

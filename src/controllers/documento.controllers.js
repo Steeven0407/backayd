@@ -90,6 +90,9 @@ export const editarDocumento = async (req, res) => {
     if (estado == "") {
         estado = null;
     }
+    if (semestre == "") {
+        semestre = null;
+    }
     try {
         // Consulta de actualización
         const [resultsubida] = await pool.query(
